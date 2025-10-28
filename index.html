@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quiz JAM — Génériques Manga</title>
+  <style>
+    /* Minimaliste noir et blanc */
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #000;
+      margin: 0;
+      padding: 18px;
+    }
+    h1 {
+      text-align: center;
+      margin: 0 0 16px;
+      font-size: 20px;
+      border-bottom: 1px solid #000;
+      padding-bottom: 10px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 20px auto;
+      border: 1px solid #000;
+      padding: 18px;
+    }
+
+    .meta {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:12px;
+      font-size:14px;
+    }
+
+    .question {
+      font-weight:700;
+      margin-bottom:10px;
+    }
+
+    .audio-row {
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin-bottom:10px;
+    }
+
+    .btn-audio {
+      padding:6px 10px;
+      border:1px solid #000;
+      background:transparent;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    .answers label {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid #000;
+      padding:8px;
+      margin-bottom:8px;
+      cursor:pointer;
+    }
+
+    input[type="checkbox"] {
+      transform:scale(1.15);
+      accent-color: black;
+    }
+
+    .correct {
+      background:#b6fcb6; /* vert clair */
+    }
+
+    .incorrect {
+      background:#ffb6b6; /* rouge clair */
+    }
+
+    #score {
+      font-weight:700;
+      text-align:right;
+      margin-top:12px;
+    }
+
+    /* responsive simple */
+    @media (max-width:600px){
+      .audio-row { flex-direction:column; align-items:flex-start; gap:6px; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎤 Quiz JAM — Génériques Manga des Années 80</h1>
+
+  <div class="container" id="quizContainer">
+    <div class="meta">
+      <div id="progress">Question 1 / 4</div>
+      <div id="liveScore">Score : 0</div>
+    </div>
+
+    <div id="questionBox">
+      <div class="question" id="questionText">Chargement...</div>
+
+      <div class="audio-row">
+        <button id="playBtn" class="btn-audio" aria-pressed="false">▶️ Jouer l'extrait</button>
+        <div id="audioInfo" style="font-size:13px;color:#333">Aucun extrait</div>
+      </div>
+
+      <!-- audio element (src mis à jour par JS) -->
+      <audio id="audio" preload="auto"></audio>
+
+      <div class="answers" id="answersList" aria-live="polite"></div>
+
+    </div>
+
+    <div id="score" style="display:none"></div>
+  </div>
+
+  <script>
+    // === Remplace les valeurs "audio" par tes fichiers réels (local ou url) ===
+    const quiz = [
+      {
+        q: "Quel anime a pour générique le thème 'Tatakae!' (titre fictif pour l'exemple) ?",
+        options: ["Capitaine Cosmos", "Samurai Luna", "Les Aventuriers Stellaires", "Le Prince du Vent"],
+        correct: 2,
+        audio: "audio/q1.mp3" // <-- remplacer par ton fichier
+      },
+      {
+        q: "Quel est le duo qui chante le générique de 'Robotique Rhapsodie' ?",
+        options: ["Y. Tanaka", "Les Super Stars", "Mika & Ken", "Takeshi Orchestra"],
+        correct: 0,
+        audio: "audio/q2.mp3"
+      },
+      {
+        q: "Dans quel générique entend-on la phrase 'Le ciel brûle, les étoiles tombent' ?",
+        options: ["Aube du Héros", "Cité des Échos", "Chroniques d'Argent", "La Montagne Bleue"],
+        correct: 1,
+        audio: "audio/q3.mp3"
+      },
+      {
+        q: "Quel instrument est caractéristique des génériques manga années 80 ?",
+        options: ["Synthétiseur analogique", "Ukulélé", "Banjo", "Harpe électrique"],
+        correct: 0,
+        audio: "audio/q4.mp3"
+      }
+    ];
+
+    // état
+    let current = 0;
+    let score = 0;
+    let answered = false;
+
+    // DOM
+    const questionText = document.getElementById('questionText');
+    const answersList = document.getElementById('answersList');
+    const progress = document.getElementById('progress');
+    const liveScore = document.getElementById('liveScore');
+    const scoreBox = document.getElementById('score');
+    const playBtn = document.getElementById('playBtn');
+    const audioEl = document.getElementById('audio');
+    const audioInfo = document.getElementById('audioInfo');
+
+    // charge la question courante
+    function loadQuestion() {
+      answered = false;
+      const item = quiz[current];
+      progress.textContent = `Question ${current + 1} / ${quiz.length}`;
+      questionText.textContent = `Q${current + 1}. ${item.q}`;
+      answersList.innerHTML = '';
+      audioEl.pause();
+      audioEl.currentTime = 0;
+
+      // configure l'audio (si vide, disable le bouton)
+      if (item.audio && item.audio.trim() !== "") {
+        audioEl.src = item.audio;
+        audioInfo.textContent = "Extrait disponible";
+        playBtn.disabled = false;
+        playBtn.setAttribute('aria-pressed','false');
+        playBtn.textContent = '▶️ Jouer l\'extrait';
+      } else {
+        audioEl.removeAttribute('src');
+        audioInfo.textContent = "Aucun extrait (remplace audio dans le script)";
+        playBtn.disabled = true;
+      }
+
+      // crée les cases à cocher (checkbox)
+      item.options.forEach((opt, i) => {
+        const label = document.createElement('label');
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.value = i;
+        input.style.pointerEvents = 'none'; // on gère le clic sur le label pour compatibilité mobile
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(opt));
+        label.dataset.index = i;
+        // le click sur le label déclenche la vérification
+        label.addEventListener('click', () => handleChoice(Number(label.dataset.index), label));
+        answersList.appendChild(label);
+      });
+
+      // mettre à jour score visuel
+      liveScore.textContent = `Score : ${score}`;
+      scoreBox.style.display = 'none';
+    }
+
+    // gestion lecture audio play/pause
+    playBtn.addEventListener('click', () => {
+      if (!audioEl.src) return;
+      if (audioEl.paused) {
+        audioEl.play();
+        playBtn.textContent = '⏸️ Pause';
+        playBtn.setAttribute('aria-pressed','true');
+      } else {
+        audioEl.pause();
+        playBtn.textContent = '▶️ Jouer l\'extrait';
+        playBtn.setAttribute('aria-pressed','false');
+      }
+    });
+
+    // si audio se termine, mettre bouton sur "play"
+    audioEl.addEventListener('ended', () => {
+      playBtn.textContent = '▶️ Jouer l\'extrait';
+      playBtn.setAttribute('aria-pressed','false');
+    });
+
+    function handleChoice(index, labelElem) {
+      if (answered) return; // ignore si déjà répondu
+      answered = true;
+
+      const item = quiz[current];
+      const labels = answersList.querySelectorAll('label');
+
+      // bloquer les interactions suivantes
+      labels.forEach(l => l.style.pointerEvents = 'none');
+
+      // cocher la case sélectionnée (visuel)
+      const cb = labelElem.querySelector('input[type="checkbox"]');
+      if (cb) cb.checked = true;
+
+      if (index === item.correct) {
+        // bonne réponse
+        labelElem.classList.add('correct');
+        score += 2; // règle +2 points
+        liveScore.textContent = `Score : ${score}`;
+        // arrêt audio si joue
+        if (!audioEl.paused) { audioEl.pause(); playBtn.textContent = '▶️ Jouer l\'extrait'; playBtn.setAttribute('aria-pressed','false'); }
+        // passe automatiquement à la question suivante après court délai
+        setTimeout(() => {
+          nextQuestion();
+        }, 700);
+      } else {
+        // mauvaise réponse
+        labelElem.classList.add('incorrect');
+        // affiche la bonne réponse en vert
+        const correctLabel = Array.from(labels).find(l => Number(l.dataset.index) === item.correct);
+        if (correctLabel) {
+          const cb2 = correctLabel.querySelector('input[type="checkbox"]');
+          if (cb2) cb2.checked = true;
+          correctLabel.classList.add('correct');
+        }
+        // arrêter audio si joue
+        if (!audioEl.paused) { audioEl.pause(); playBtn.textContent = '▶️ Jouer l\'extrait'; playBtn.setAttribute('aria-pressed','false'); }
+        setTimeout(() => {
+          nextQuestion();
+        }, 1000);
+      }
+    }
+
+    function nextQuestion() {
+      current++;
+      if (current < quiz.length) {
+        loadQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function finishQuiz() {
+      // stop audio
+      if (!audioEl.paused) audioEl.pause();
+      // afficher récapitulatif simple
+      questionText.textContent = "🎉 Quiz terminé !";
+      answersList.innerHTML = `<p>Ton score final est de <strong>${score}</strong> points.</p>`;
+      progress.textContent = `Terminé • ${quiz.length} questions`;
+      liveScore.textContent = `Score : ${score}`;
+      scoreBox.style.display = 'block';
+      scoreBox.textContent = `Score final : ${score} points`;
+      playBtn.disabled = true;
+    }
+
+    // init
+    loadQuestion();
+
+    // conseil : si tu veux tester sans fichiers locaux, tu peux remplacer les valeurs audio
+    // par des URLs publiques (mp3) ou upload tes fichiers mp3 dans le même dossier que index.html.
+  </script>
+
+</body>
+</html>

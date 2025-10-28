@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Quiz Musical – Génériques Manga 80s</title>
+<style>
+body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; }
+h1, h2 { text-align: center; }
+.intro { font-style: italic; margin-bottom: 10px; text-align: center; }
+.rules { background:#fff; padding:15px; border-radius:8px; margin-bottom:20px; display:none; }
+.question { background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+.answers label { display: block; margin: 5px 0; cursor: pointer; padding: 5px; border-radius: 5px; border: 1px solid #ccc; }
+.correct { background-color: #a0e7a0; border-color: #70c070; }
+.wrong { background-color: #f7a0a0; border-color: #e07070; }
+#score { font-weight: bold; margin-top: 20px; text-align: center; }
+.submit-btn { margin-top: 10px; padding: 8px 12px; cursor: pointer; border-radius: 5px; border: none; background-color: #0077cc; color: #fff; }
+.submit-btn:hover { background-color: #005fa3; }
+.excerpt { margin:10px 0; height:50px; background:#eee; border:1px dashed #ccc; display:flex; align-items:center; justify-content:center; }
+#archive { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); background: #fff; border: 1px solid #ccc; padding: 10px; border-radius: 8px; max-width: 400px; font-size: 14px; text-align: center; }
+#archive ul { list-style:none; padding-left:0; margin:5px 0 0 0; }
+</style>
+</head>
+<body>
+
+<h1>🎤 Quiz Musical – Génériques Manga des Années 80🎤</h1>
+
+<p class="intro">
+Bienvenue dans le temple de la nostalgie, là où les héros crient fort, les robots brillent, et les génériques restent bloqués dans ta tête depuis les années 80 ! 🎶
+</p>
+
+<h2>🎮 Règles du jeu :</h2>
+<div style="text-align:center; margin:10px 0;">
+<button id="toggle-rules" class="submit-btn">Voir / Cacher les règles</button></div>
+
+<div class="rules" id="rules-content">
+  <ul>
+    <li>4 questions mythiques, chacune avec 4 réponses possibles.</li>
+    <li>Écoute l’extrait ou regarde l’image et choisis UNE seule réponse.</li>
+    <li>Pas de triche ! Chaque bonne réponse = 2 points.</li>
+    <li>Après avoir validé, clique sur “Question suivante” pour passer à la suivante.</li>
+    <li>Score total affiché à la fin du quiz avec ton niveau de nostalgie !</li>
+  </ul>
+</div>
+
+<div id="quiz">
+  <p class="question">Ici apparaîtront les questions...</p>
+</div>
+
+<div id="score">Score : 0</div>
+
+<script>
+const questions = [
+  {
+    question:"Quel dessin animé correspond à cet extrait sonore ?",
+    audio:"Albator,_le_corsaire_de_l'espace.mp3",
+    answers:["Ulysse 31","Radma 1/2","Goldorak","Albator 78"],
+    correct:3
+  },
+  
+  {
+    question:"Qui interprète le célèbre générique de Candy ?",
+    audio:"au_pays.mp3",
+    answers:["Dorothée","Claude Lombard","Chantal Goya","Hélène Rollès"],
+    correct:1
+  },
+  {
+    question:"À quel dessin animé appartient ce générique ?",
+    audio:"LesChevaliersDuZodiaque.mp3",
+    answers:["Princesse Sara","Dragon Ball","Les Chevaliers du Zodiaque","Cobra"],
+    correct:2
+  },
+  {
+    question:"À quel dessin animé appartient ce générique ?",
+    audio:"LesCitesDOr.mp3",
+    image:"https://upload.wikimedia.org/wikipedia/fr/thumb/6/60/Logo_Cites_d%27Or.png/250px-Logo_Cites_d%27Or.png",
+    answers:["Les Mystérieuses Cités d’Or","KEN le survivant","Samourai Pizza-Cats","Cats Eyes"],
+    correct:0
+  }
+];
+
+let current = 0;
+let score = 0;
+
+function showQuestion() {
+  const q = questions[current];
+  let html = `<div class="question"><p>${q.question}</p>`;
+  if(q.audio) html += `<audio controls><source src="${q.audio}" type="audio/mp3">Votre navigateur ne supporte pas l'audio.</audio>`;
+  if(q.image) html += `<div class="excerpt"><img src="${q.image}" style="max-height:100px;"></div>`;
+  html += `<div class="answers">`;
+  q.answers.forEach((a,i) => {
+    html += `<label><input type="radio" name="answer" value="${i}"> ${a}</label>`;
+  });
+  html += `</div><button class="submit-btn" onclick="checkAnswer()">Valider</button></div>`;
+  document.getElementById("quiz").innerHTML = html;
+}
+
+function checkAnswer() {
+  const q = questions[current];
+  const selected = document.querySelector('input[name="answer"]:checked');
+  if(!selected) { alert("Sélectionne une réponse !"); return; }
+  const answerIndex = parseInt(selected.value);
+  const labels = document.querySelectorAll('.answers label');
+
+  if(answerIndex === q.correct){
+    labels[answerIndex].classList.add("correct");
+    score += 2;
+  } else {
+    labels[answerIndex].classList.add("wrong");
+    labels[q.correct].classList.add("correct");
+  }
+
+  document.getElementById("score").textContent = "Score : " + score;
+  document.querySelectorAll('input[name="answer"]').forEach(i=>i.disabled=true);
+
+  const btn = document.querySelector('.submit-btn');
+  btn.textContent = "Question suivante";
+  btn.onclick = nextQuestion;
+}
+
+function nextQuestion() {
+  current++;
+  if(current < questions.length) showQuestion();
+  else document.getElementById("quiz").innerHTML = `<h2>🏆 Quiz terminé !</h2>
+      <p style="text-align:center;">Score final : ${score} / ${questions.length*2}</p>
+      <p style="text-align:center; margin-top:10px;">${getResult(score)}</p>`;
+}
+
+function getResult(score){
+  if(score === 8) return "🥇 Super Saiyan du générique — tu connais chaque note, chaque cri, chaque transformation.";
+  if(score >= 6) return "🥈 Héros confirmé — t’as grandi avec Dorothée et tu l’assumes.";
+  if(score >= 4) return "🥉 Apprenti otaku — tu confonds Goldorak et Mazinger, mais tu progresses.";
+  return "💩 Touriste temporel — retourne vite réviser tes classiques, on t’attend à la récré !";
+}
+
+showQuestion();
+
+document.getElementById("toggle-rules").addEventListener("click", function() {
+  const rules = document.getElementById("rules-content");
+  if (rules.style.display === "none" || rules.style.display === "") {
+    rules.style.display = "block";
+  } else {
+    rules.style.display = "none";
+  }
+});
+
+
+</script>
+<div style="text-align:center; margin-top:20px;">
+  <button class="submit-btn" id="rejouer-btn">🔁 Rejouer</button>
+</div>
+
+<!-- Archive centrée en bas -->
+<div id="archive">
+  <strong>📚 Archive des génériques :</strong>
+  <ul>
+    <li><a href="https://s-albator-78.mp3.pm/" target="_blank">Albator 78</a></li>
+    <li><a href="https://archive.org/download/tvtunes_20639/Candy.mp3" target="_blank">Candy</a></li>
+    <li><a href="https://archive.org/download/tvtunes_20639/LesMysterieusesCitesdOr.mp3" target="_blank">Les Mystérieuses Cités d’Or</a></li>
+  </ul>
+</div>
+
+</body>
+</html>
