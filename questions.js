@@ -1,23 +1,23 @@
-export const quiz_ = {
+export const quiz = {
   
-  questions: [
+  q: [
   {
     q: "Q1?",
-    answers: ["R1", "R2", "R3"],
-    correct: 0
+    option: ["R1", "R2", "R3"],
+    correct: "R2"
   },
   {
     q: "Q2?",
-    answers: ["R1", "R2", "R3"],
-    correct: 0
+    option: ["R1", "R2", "R3"],
+    correct: "R1"
   },{
     q: "Q3?",
-    answers: ["R1", "R2", "R3"],
-    correct: 0
+    option: ["R1", "R2", "R3"],
+    correct: "R3"
   },
   {
     q: "Q4?",
-    answers: ["R1", "R2", "R3"],
-    correct: 0
+    option: ["R1", "R2", "R3"],
+    correct: "R2"
   }
 ]};

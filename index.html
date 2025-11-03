@@ -3,16 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Quiz JAM</title>
+     <script defer type="module" src="game.js"></script>
 </head>
 <body>
-    <div>blabla-test-blabla</div>
-    <div id="quiz-container">
-		<div class="question">
-		question-1?
-		</div>
+
+    <h1>Best Quiz in the world</h1>
+
+    <p>Instructions</p>
+  
+
+      <div id="quizContainer">
+   
+    <div class="question" id="questionText">
+      <!-- La question sera injectée ici par JavaScript -->
+    </div>
+
+    
+    <div class="options" id="optionsContainer">
+      <!-- Les options seront injectées ici par JavaScript -->
+    </div>
+
+   
+    <div class="buttonContainer">
+      <button id="nextButton">Suivant</button>
+    </div>
+  </div>
+  
+  
 
 
-      <script type="module" src="game.js"></script>
+
+
+     
 </body>
 </html>
+
