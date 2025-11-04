@@ -10,6 +10,7 @@ const questionText = document.getElementById("questionText");
 const optionsContainer = document.getElementById("optionsContainer");
 //const buttonContainer = document.getElementById(''); 
 const nextButton = document.getElementById('nextButton'); 
+const replayBtn = document.getElementById('replay-button')
 
 /* Récupérer la première question
 const firstQuestion = quiz.q[0];
@@ -62,12 +63,48 @@ nextButton.addEventListener('click', () => {
     // Si plus de questions, indiquer la fin du quiz
 
     questionText.innerText = 'fin du quiz';
-    option.innerHTML = ''; // Effacer les options
+    optionsContainer.innerHTML = ''; // Effacer les options
     nextButton.style.display = 'none'; // Cacher le bouton Suivant
+     replayBtn.style.display = 'inline-block'; // Afficher le bouton Suivant
   }
 });
 
+
+// Fonction pour réinitialiser le quiz
+replayBtn.addEventListener('click', () => {
+  // TODO Réinitialiser l'index 
+  currentQuestionIndex = 0; 
+  // TODO Cacher le bouton Rejouer et afficher le bouton Suivant
+  nextButton.style.display = 'inline-block';
+  replayBtn.style.display = 'none';
+  // TODO Recharger la première question
+  loadQuestion()
+  
+});
+
+function checkAnswer("false", "correct") {
+  if (option === "correct")
+  nextButton.style.display = 'inline-block';
+  replayBtn.style.display = 'none';
+  btn.classList.add("correct")
+} else { 
+  
+  (btn.classList.add("false"));
+  nextButton.style.display.background-color = 'inline-block';
+  replayBtn.style.display = 'none';
+
+}  
+
+
+  
+
 // Charger la première question au chargement de la page
 loadQuestion();
+
+
+
+
+
+
 
 
