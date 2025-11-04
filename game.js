@@ -2,6 +2,8 @@ import { quiz } from './questions.js';
 
 
 // Récupérer les emplacements pour injecter la question et les options
+let currentQuestionIndex = 0; // Commence à la première question
+let score = 0
 
 //const quizContainer = document.getElementById('');//
 //const question = document.getElementById('');//
@@ -9,8 +11,10 @@ const questionText = document.getElementById("questionText");
 //const options = document.getElementById('');
 const optionsContainer = document.getElementById("optionsContainer");
 //const buttonContainer = document.getElementById(''); 
+const scoreCheck  = document.getElementById('score-count'); 
 const nextButton = document.getElementById('nextButton'); 
-const replayBtn = document.getElementById('replay-button')
+const replayBtn = document.getElementById('replay-button');
+const rightAnswer = quiz.q[currentQuestionIndex].correct;
 
 /* Récupérer la première question
 const firstQuestion = quiz.q[0];
@@ -27,7 +31,6 @@ firstQuestion.option.forEach(option => {
 }); */
 
 // Variables pour suivre l'état du quiz
-let currentQuestionIndex = 0; // Commence à la première question
 
 // Fonction pour afficher une question basée sur l'index actuel
 function loadQuestion() {
@@ -46,8 +49,11 @@ function loadQuestion() {
     option_btn.innerText = option;
    option_btn.classList.add('Answer');
    optionsContainer.appendChild(option_btn);
+
   });
+    checkAnswer()
 }
+
 
 
 // Ajouter un écouteur d'événements pour le bouton "Suivant"
@@ -66,7 +72,7 @@ nextButton.addEventListener('click', () => {
     optionsContainer.innerHTML = ''; // Effacer les options
     nextButton.style.display = 'none'; // Cacher le bouton Suivant
      replayBtn.style.display = 'inline-block'; // Afficher le bouton Suivant
-  }
+  } 
 });
 
 
@@ -82,8 +88,42 @@ replayBtn.addEventListener('click', () => {
   
 });
 
-function checkAnswer("false", "correct") {
-  if (option === "correct")
+function checkAnswer()
+{
+  document.querySelectorAll('.Answer').forEach(bouton => 
+  {
+    bouton.addEventListener('click', () =>
+    {
+      if (bouton.innerText === rightAnswer)
+      {
+        bouton.style.border = "2px solid green";
+        
+        score ++
+        //console.log('vert')      
+      }
+      else
+      {
+        bouton.style.border = "2px solid red";
+        //console.log('rouge')
+      }
+      document.querySelectorAll('.Answer').forEach(bouton => {
+      bouton.disabled = true;
+      })
+    });
+  });
+  scoreCheck.textContent = `score final : ${score}`;
+}
+
+
+
+
+  
+  
+  
+  
+  
+  
+/*  if (option === "correct")
   nextButton.style.display = 'inline-block';
   replayBtn.style.display = 'none';
   btn.classList.add("correct")
@@ -93,18 +133,10 @@ function checkAnswer("false", "correct") {
   nextButton.style.display.background-color = 'inline-block';
   replayBtn.style.display = 'none';
 
-}  
+}   */
 
 
   
 
 // Charger la première question au chargement de la page
 loadQuestion();
-
-
-
-
-
-
-
-
