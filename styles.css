@@ -1,12 +1,54 @@
 body {
 
-    background-color: blueviolet;
+    font-family: 'New Super Mario Font U', sans-serif;
+    background-image: url(images/background.jpg);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-position: center;
+    background-size: cover;
+    
+
+    
+                                                
+}
+
+.title-box {
+
+    justify-content: center;
+    display: flex;
+}
+
+.rules-container {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+
 }
 
 
 
 #toggleTitle {
     font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    padding: 20px;
+    background-color: goldenrod;
+    font-family: 'New Super Mario Font U', sans-serif;
+    color: blue;
+    font-size: x-large;
+
+  
+}
+
+#toggleTitle:hover {
+    background-color: yellowgreen; /* change background on hover */
+    transform: scale(1.05);       /* slightly enlarge on hover */
+    cursor: pointer;              /* changes mouse to hand icon */
+}
+.rules-appear {
+
+   
     display: flex;
     text-align: center;
   
@@ -15,22 +57,8 @@ body {
 .titre-style {
     display: flex;
     align-self: center;
-     cursor: pointer;
 }
 
-
-#toggleTitleBis {
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    text-align: center;
-  
-}
-
-.titre-styleBis {
-    display: flex;
-    align-self: center;
-    cursor: pointer;
-}
 
 
 

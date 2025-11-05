@@ -79,8 +79,8 @@ function loadQuestion() {
   currentQuestion.option.forEach(option => {
     const option_btn = document.createElement('button');
     option_btn.innerText = option;
-   option_btn.classList.add('Answer');
-   optionsContainer.appendChild(option_btn);
+    option_btn.classList.add('Answer');
+    optionsContainer.appendChild(option_btn)
 
   });
     checkAnswer()
@@ -136,6 +136,7 @@ function checkAnswer()
       else
       {
         bouton.style.border = "2px solid red";
+        //console.log()
         //console.log('rouge')
       }
       document.querySelectorAll('.Answer').forEach(bouton => {
