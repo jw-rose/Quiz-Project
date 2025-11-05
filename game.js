@@ -15,6 +15,22 @@ const scoreCheck  = document.getElementById('score-count');
 const nextButton = document.getElementById('nextButton'); 
 const replayBtn = document.getElementById('replay-button');
 const rightAnswer = quiz.q[currentQuestionIndex].correct;
+/* pour afficher et faire disparaitre un text: */ 
+const toggleTitle = document.getElementById('toggleTitle'); 
+// Récupère l'élément à afficher ou cacher (le texte caché)
+const hiddenText = document.getElementById('hiddenText'); 
+
+// Ajoute un écouteur d'événement sur le titre
+toggleTitle.addEventListener('click', function() { 
+    // Vérifie si le texte est caché ou non défini
+    if (hiddenText.style.display === 'none' || hiddenText.style.display === '') { 
+        // Si caché, on l'affiche
+        hiddenText.style.display = 'block'; 
+    } else { 
+        // Sinon, on le cache
+        hiddenText.style.display = 'none'; 
+    }
+});
 
 /* Récupérer la première question
 const firstQuestion = quiz.q[0];
@@ -115,7 +131,35 @@ function checkAnswer()
 }
 
 
+/* let response;
+let score = 0;
 
+// Add your code here
+
+if (score <= 0 || score >= 8) {
+  response ="this is not possible"
+}
+
+if (score > 0 && score < 19) {
+  response = "That was a terrible score — total fail!"
+}
+
+if (score > 20 && score < 39) {
+  response = "You know some things, but it's a pretty bad score. Needs improvement."
+}
+if (score > 40 && score < 69) {
+  response = "You did a passable job, not bad!"
+}
+    
+if (score > 70 && score  < 89) {
+  response = "Thats a great score, you really know your stuff."
+}
+
+if (score > 90 && score < 100) {
+  response = "What an amazing score! Did you cheat? Are you for real?"
+}
+
+ */
 
   
   

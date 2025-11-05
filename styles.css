@@ -1,7 +1,27 @@
 body {
 
-    background-color: aqua;
+    background-color: blueviolet;
 }
+
+
+
+#toggleTitle {
+
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    text-align: center;
+  
+}
+
+.titre-style {
+    display: flex;
+    align-self: center;
+}
+
+
+
+
+
 
 
 .false{ background-color: red;}
