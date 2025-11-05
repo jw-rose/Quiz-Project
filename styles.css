@@ -128,8 +128,8 @@ body {
 
 
 .end, #hiddenTextBis {
-  text-align: center; /* centers text and inline elements */
-  margin bott: 0 auto;     /* centers block elements horizontally */
+  text-align: left; /* centers text and inline elements */
+  margin-bottom: auto;     /* centers block elements horizontally */
 }
 
 #toggleTitleBis {
@@ -145,6 +145,3 @@ body {
 
 
 
-.false{ background-color: red;}
-
-.correct{ background-color: green;}

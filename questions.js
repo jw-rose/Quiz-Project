@@ -8,7 +8,7 @@ export const quiz = {
   },
   {
     q: "Question 2 : Le tout premier jeu; Dans Donkey Kong (1981), quel personnage a été conçu pour sauver Pauline ?",
-    option: ["RMario", "Peach", "Chantal Goya", "Toi"],
+    option: ["Mario", "Peach", "Chantal Goya", "Toi"],
     correct: "Mario"
   },{
     q: "Question 3 : Le compagnon emblématique; Quel est le nom du frère de Mario, souvent en deuxième joueur dans les jeux ?",
@@ -36,7 +36,7 @@ export const quiz = {
     correct: "Super Mario Sunshine"
   },
   {
-    q: "Lequel de ces jeux vidéo est un jeu de course?",
+    q: "Question 8 : Les transformations modernes; Lequel de ces jeux vidéo est un jeu de course?",
     option: ["Super Smash Bros", "Mario Kart 8", "Super Mario 3D World", "Donkey Kong Country"],
     correct: "Super Mario 3D World"
   },
