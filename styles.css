@@ -30,7 +30,6 @@ body {
 
 
 #toggleTitle {
-
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     padding: 20px;
@@ -52,60 +51,13 @@ body {
    
     display: flex;
     text-align: center;
-    padding: 30px;
-    margin-bottom: 50px;
-    font-size: x-large;
-
-}
-
-#quizContainer {
-  display: flex;
-  justify-content: center; /* center horizontally */
-  align-items: center;     /* center vertically */
-  height: 50vh;           /* make the container fill the viewport */
   
 }
 
-
-.question {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  align-items: flex-start;
-}
-
-.options {
-  display: grid;
-  grid-template-columns: 2fr 2fr;
-  gap: 1rem;
-  padding: 50px;
-  
-}
-
-.options button {
-
-    background-color: bisque;
-    font-family: 'New Super Mario Font U', sans-serif;
-    padding: 20px;
-    
-}
-
-.options button:hover {
-
-    background-color: yellow; /* change background on hover */
-    transform: scale(1.05);       /* slightly enlarge on hover */
-    cursor: pointer;            
-
-
-}
-
-
-.buttonContainer {
-    display: flex;           /* Enable flex layout */
-    justify-content: flex-end; /* Push content to the right */
-    gap: 10px;               /* Optional: space between buttons */
-    padding: 10px;
-
-
+.titre-style {
+    display: flex;
+    align-self: center;
+    cursor: pointer;
 }
 
 #nextButton {
@@ -116,11 +68,6 @@ body {
 }
 
 
-#score-count {
-    text-align: center;
-    padding: 30px;
-    font-size: xx-large;
-}
 
 
 

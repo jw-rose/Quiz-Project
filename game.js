@@ -33,6 +33,22 @@ toggleTitle.addEventListener('click', function() {
     }
 });
 
+const toggleTitle2 = document.getElementById('toggleTitleBis'); 
+// Récupère l'élément à afficher ou cacher (le texte caché)
+const hiddenTextBis = document.getElementById('hiddenTextBis'); 
+
+// Ajoute un écouteur d'événement sur le titre
+toggleTitle2.addEventListener('click', function() { 
+    // Vérifie si le texte est caché ou non défini
+    if (hiddenTextBis.style.display === 'none' || hiddenTextBis.style.display === '') { 
+        // Si caché, on l'affiche
+        hiddenTextBis.style.display = 'block'; 
+    } else { 
+        // Sinon, on le cache
+        hiddenTextBis.style.display = 'none'; 
+    }
+});
+
 /* Récupérer la première question
 const firstQuestion = quiz.q[0];
 

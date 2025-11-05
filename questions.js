@@ -32,7 +32,7 @@ export const quiz = {
   },
   {
     q: "Question 7 : Les jeux marquants; Dans quel jeu Mario a-t-il dû nettoyer une île couverte de graffitis à l’aide d’un arrosoir ?",
-    option: ["Super Mario Sunshine", "Mario galaxy", "Mario Univers", "Mario Kart"],
+    option: ["Super Mario Sunshine", "Mario galaxy", "Super Mario Odyssey", "Mario Kart"],
     correct: "Super Mario Sunshine"
   },
   {
