@@ -68,9 +68,10 @@ body {
 
 
 .question {
-  font-size: 1.5rem;
+  font-size: 2.3rem;
   margin-bottom: 1.5rem;
   align-items: flex-start;
+  text-align: center;
 }
 
 .options {
@@ -86,6 +87,7 @@ body {
     background-color: bisque;
     font-family: 'New Super Mario Font U', sans-serif;
     padding: 20px;
+    font-size: xx-large;
     
 }
 
@@ -120,11 +122,25 @@ body {
     text-align: center;
     padding: 30px;
     font-size: xx-large;
+    color: gold;
 }
 
 
 
+.end, #hiddenTextBis {
+  text-align: center; /* centers text and inline elements */
+  margin bott: 0 auto;     /* centers block elements horizontally */
+}
 
+#toggleTitleBis {
+
+    cursor: pointer;
+    text-align: left;
+    align-items: left;
+    color: bisque;
+    
+
+}
 
 
 

@@ -125,7 +125,8 @@ replayBtn.addEventListener('click', () => {
 });
 
 function checkAnswer()
-{
+{ const correctSound = new Audio('sounds/Coin Mario - QuickSounds.com.mp3');
+  const wrongSound = new Audio('sounds/Mario Death - QuickSounds.com.mp3');
   document.querySelectorAll('.Answer').forEach(bouton => 
   {
     bouton.addEventListener('click', () =>
@@ -135,12 +136,14 @@ function checkAnswer()
         bouton.style.border = "2px solid green";
         console.log(rightAnswer)
         score ++
+        correctSound.play()
         //console.log('vert')      
       }
       else
       {
         bouton.style.border = "2px solid red";
         console.log(rightAnswer)
+        wrongSound.play()
         //console.log('rouge')
       }
       document.querySelectorAll('.Answer').forEach(bouton => {

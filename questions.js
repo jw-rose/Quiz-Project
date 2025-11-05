@@ -36,7 +36,7 @@ export const quiz = {
     correct: "Super Mario Sunshine"
   },
   {
-    q: "Q8?",
+    q: "Lequel de ces jeux vidéo est un jeu de course?",
     option: ["Super Smash Bros", "Mario Kart 8", "Super Mario 3D World", "Donkey Kong Country"],
     correct: "Super Mario 3D World"
   },
