@@ -6,7 +6,6 @@ body {
 
 
 #toggleTitle {
-
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
     text-align: center;
@@ -16,8 +15,22 @@ body {
 .titre-style {
     display: flex;
     align-self: center;
+     cursor: pointer;
 }
 
+
+#toggleTitleBis {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    text-align: center;
+  
+}
+
+.titre-styleBis {
+    display: flex;
+    align-self: center;
+    cursor: pointer;
+}
 
 
 
