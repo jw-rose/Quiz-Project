@@ -57,6 +57,7 @@ body {
 .titre-style {
     display: flex;
     align-self: center;
+    cursor: pointer;
 }
 
 
