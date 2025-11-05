@@ -5,17 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz JAM</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.cdnfonts.com/css/new-super-mario-font-u" rel="stylesheet">
      <script defer type="module" src="game.js"></script>
 </head>
 <body>
 
-    <div class="quiz-box">
-     <h1 class ="titre"> <a><img src="/images/h1 logo.jpg" alt="Super Mario Quiz"></a></h1></div>
+    <div class="title-box">
+     <h1 class ="title"> <a><img src="/images/h1 logo.jpg" alt="Super Mario Quiz" height="200px"></a></h1></div>
 
  <!-- e texte cliquable -->
-    <p id="toggleTitle" class="titre-style">
-🎮 Règles du jeu – Quiz Musical : Mario.BROS 🎮
-</p>
+  <div class="rules-container">
+  <p id="toggleTitle" class="titre-style">
+    🎮 Règles du jeu – Quiz Musical : Mario.BROS 🎮
+  </p>
+  </div>
+
+<div class ="rules-appear">
 <p id="hiddenText" style="display: none;">  <!-- le texte à afficher/masquer --> <!-- caché par défaut -->
  Bienvenue dans le Super Quiz Mario !
  Prépare ton chapeau rouge, tes gants blancs et ton meilleur saut,
@@ -25,23 +30,29 @@ Ici, pas de Bowser à combattre…
 Ta mission :
  Réponds juste à un max de questions pour montrer que tu es le vrai héros de Nintendo(Chaque bonne réponse = 1 point.).
 </p>
+</div>
+
   
 
-      <div id="quizContainer">
-   
+    <div id="quizContainer">
+  <div class="quiz-box">
     <div class="question" id="questionText">
       <!-- La question sera injectée ici par JavaScript -->
     </div>
 
-    
     <div class="options" id="optionsContainer">
+     
       <!-- Les options seront injectées ici par JavaScript -->
     </div>
+  </div>
+</div>
+
+
     <div id ="score-count">SCORE: 0</div>
 
    
     <div class="buttonContainer">
-      <button id="nextButton">Suivant</button>
+      <button id="nextButton"><img src="images/next icon.jpg" alt="suivant" height="100px" ></button>
 
       <button id="replay-button" style="display: none;">Rejouer</button> 
 
