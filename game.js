@@ -4,6 +4,7 @@ import { quiz } from './questions.js';
 // Récupérer les emplacements pour injecter la question et les options
 let currentQuestionIndex = 0; // Commence à la première question
 let score = 0
+let rightAnswer = null
 
 //const quizContainer = document.getElementById('');//
 //const question = document.getElementById('');//
@@ -14,11 +15,11 @@ const optionsContainer = document.getElementById("optionsContainer");
 const scoreCheck  = document.getElementById('score-count'); 
 const nextButton = document.getElementById('nextButton'); 
 const replayBtn = document.getElementById('replay-button');
-const rightAnswer = quiz.q[currentQuestionIndex].correct;
 /* pour afficher et faire disparaitre un text: */ 
 const toggleTitle = document.getElementById('toggleTitle'); 
 // Récupère l'élément à afficher ou cacher (le texte caché)
-const hiddenText = document.getElementById('hiddenText'); 
+const hiddenText = document.getElementById('hiddenText');
+
 
 // Ajoute un écouteur d'événement sur le titre
 toggleTitle.addEventListener('click', function() { 
@@ -55,6 +56,8 @@ function loadQuestion() {
 
   // Récupérer la question actuelle
   const currentQuestion = quiz.q[currentQuestionIndex];
+  rightAnswer = quiz.q[currentQuestionIndex].correct;
+
 
   // Injecter la question dans le HTML
   questionText.innerText = currentQuestion.q;
@@ -76,6 +79,7 @@ function loadQuestion() {
 nextButton.addEventListener('click', () => {
   // Incrémenter l'index de la question
   currentQuestionIndex++;
+  console.log(currentQuestionIndex)
 
   // Vérifier s'il reste des questions
   if (currentQuestionIndex < quiz.q.length) {
@@ -95,13 +99,13 @@ nextButton.addEventListener('click', () => {
 // Fonction pour réinitialiser le quiz
 replayBtn.addEventListener('click', () => {
   // TODO Réinitialiser l'index 
-  currentQuestionIndex = 0; 
+  currentQuestionIndex = 0;
+  score = 0; 
   // TODO Cacher le bouton Rejouer et afficher le bouton Suivant
   nextButton.style.display = 'inline-block';
   replayBtn.style.display = 'none';
   // TODO Recharger la première question
   loadQuestion()
-  
 });
 
 function checkAnswer()
@@ -113,14 +117,14 @@ function checkAnswer()
       if (bouton.innerText === rightAnswer)
       {
         bouton.style.border = "2px solid green";
-        
+        console.log(rightAnswer)
         score ++
         //console.log('vert')      
       }
       else
       {
         bouton.style.border = "2px solid red";
-        //console.log()
+        console.log(rightAnswer)
         //console.log('rouge')
       }
       document.querySelectorAll('.Answer').forEach(bouton => {
