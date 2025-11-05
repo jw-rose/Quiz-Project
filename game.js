@@ -30,7 +30,7 @@ toggleTitle2.addEventListener('click', function() {
     if (hiddenTextBis.style.display === 'none' || hiddenTextBis.style.display === '') { 
         hiddenTextBis.style.display = 'block'; 
     } else { 
-       
+        // Sinon, on le cache
         hiddenTextBis.style.display = 'none'; 
     }
 });
@@ -49,14 +49,14 @@ function loadQuestion() {
   questionText.innerText = currentQuestion.q;
 
   // Injecter les options dans le HTML 
-  currentQuestion.option.forEach(option => {
+  currentQuestion.option.forEach(option => 
+  {
     const option_btn = document.createElement('button');
     option_btn.innerText = option;
     option_btn.classList.add('Answer');
     optionsContainer.appendChild(option_btn)
-
   });
-    checkAnswer()
+  checkAnswer()
 }
 
 
@@ -77,7 +77,22 @@ nextButton.addEventListener('click', () => {
 
     optionsContainer.innerHTML = ''; // Effacer les options
     nextButton.style.display = 'none'; // Cacher le bouton Suivant
-     replayBtn.style.display = 'inline-block'; // Afficher le bouton Suivant
+    replayBtn.style.display = 'inline-block'; // Afficher le bouton replay
+    function getResult(score) 
+    {
+        if (score === 8) return "🥇 Super Mario Légendaire 🥇— Tu sautes plus haut que Luigi, tu conduis mieux que Toad et tu connais tous les raccourcis de Rainbow Road. Le Royaume Champignon t’appartient ! 👑";
+        if (score === 7) return "🥈 Étoile Vivante 🥈— Rien ne t’arrête ! Même les carapaces bleues rebondissent sur toi. Peach t’envoie un mot doux 💌";
+        if (score === 6) return "🥉 Héros du Royaume 🥉— Tu sauves Peach avant le café du matin. Bowser commence à te craindre… et il a raison. 🔥";
+        if (score === 5) return "🏆 Plombier Confirmé 🏆— Tu répares les tuyaux, évites les pièges et conduis presque sans déraper. Pas mal, moustachu ! 👨🏻‍🔧";
+        if (score === 4) return "🍄 Apprenti du Royaume 🍄— Tu reconnais Bowser, mais tu confonds encore les fleurs et les champignons. Allez, un petit boost et tu brilles ⭐";
+        if (score === 3) return "🎈 Ami de Yoshi🎈— Tu aides souvent, mais tu tombes parfois dans les trous. Courage, tu progresses à grands pas ! 🦖";
+        if (score === 2) return "💫 Traine-pixels💫— Tu confonds Goldorak et Mazinger, mais tu progresses.";
+        if (score < 2) return "💩 Goomba Perdu 💩— Tu crois que Peach est la sœur de Luigi et que Bowser est un gentil dragon. Retour à l’écran titre ! 🕹️";
+    };
+    const texteConclusion = document.createElement('p');
+    texteConclusion.innerText = getResult(score);
+    texteConclusion.classList.add('conclusion');
+    optionsContainer.appendChild(texteConclusion)
   } 
 });
 
@@ -97,6 +112,7 @@ replayBtn.addEventListener('click', () => {
 function checkAnswer()
 { const correctSound = new Audio('sounds/Coin Mario - QuickSounds.com.mp3');
   const wrongSound = new Audio('sounds/Mario Death - QuickSounds.com.mp3');
+  nextButton.disabled = true
   document.querySelectorAll('.Answer').forEach(bouton => 
   {
     bouton.addEventListener('click', () =>
@@ -107,7 +123,8 @@ function checkAnswer()
         console.log(rightAnswer)
         score ++
         correctSound.play()
-        //console.log('vert')      
+        //console.log('vert')
+        //nextButton.disabled = false      
       }
       else
       {
@@ -115,9 +132,11 @@ function checkAnswer()
         console.log(rightAnswer)
         wrongSound.play()
         //console.log('rouge')
+        //nextButton.disabled = false
       }
       document.querySelectorAll('.Answer').forEach(bouton => {
       bouton.disabled = true;
+      nextButton.disabled = false
       })
     });
   });
@@ -132,8 +151,59 @@ if (scoreCheck >= 2) return "💫 Traine-pixels💫— Tu confonds Goldorak et M
   return "💩 Goomba Perdu 💩— Tu crois que Peach est la sœur de Luigi et que Bowser est un gentil dragon. Retour à l’écran titre ! 🕹️";
 };
   scoreCheck.textContent = `score final : ${score}`;
-  getResult(score)
 }
 
 
+/* let response;
+let score = 0;
+
+// Add your code here
+
+if (score <= 0 || score >= 8) {
+  response ="this is not possible"
+}
+
+if (score > 0 && score < 19) {
+  response = "That was a terrible score — total fail!"
+}
+
+if (score > 20 && score < 39) {
+  response = "You know some things, but it's a pretty bad score. Needs improvement."
+}
+if (score > 40 && score < 69) {
+  response = "You did a passable job, not bad!"
+}
+    
+if (score > 70 && score  < 89) {
+  response = "Thats a great score, you really know your stuff."
+}
+
+if (score > 90 && score < 100) {
+  response = "What an amazing score! Did you cheat? Are you for real?"
+}
+
+ */
+
+  
+  
+  
+  
+  
+  
+/*  if (option === "correct")
+  nextButton.style.display = 'inline-block';
+  replayBtn.style.display = 'none';
+  btn.classList.add("correct")
+} else { 
+  
+  (btn.classList.add("false"));
+  nextButton.style.display.background-color = 'inline-block';
+  replayBtn.style.display = 'none';
+
+}   */
+
+
+  
+
+// Charger la première question au chargement de la page
 loadQuestion();
