@@ -108,6 +108,12 @@ body {
 
 }
 
+#nextButton {
+    background-color: transparent; /* Remove button color */
+    border: none; /* Remove border */
+    padding: 0; /* Optional: remove padding */
+    cursor: pointer; /* Make it look clickable */
+}
 
 
 #score-count {
@@ -115,6 +121,10 @@ body {
     padding: 30px;
     font-size: xx-large;
 }
+
+
+
+
 
 
 
